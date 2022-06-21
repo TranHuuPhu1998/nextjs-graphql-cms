@@ -19,7 +19,7 @@ const CommentsForm: React.FC<any> = ({ slug }) => {
     }
   }, []);
 
-  const onInputChange = (e) => {
+  const onInputChange = (e: any) => {
     const { target } = e;
     if (target.type === 'checkbox') {
       setFormData((prevState: any) => ({
