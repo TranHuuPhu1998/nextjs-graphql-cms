@@ -2,13 +2,17 @@ import React from 'react';
 
 import moment from 'moment';
 import { PostDetailQuery } from '../interface/PostDetail';
-import Link from 'next/link';
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-markup';
 
 const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
   const getContentFragment = (index: number, text: any, obj: any, type?: any) => {
     let modifiedText = text;
 
-    if (obj) {
+    if (obj & type) {
       if (obj.bold) {
         modifiedText = <b key={index}>{text}</b>;
       }
@@ -23,6 +27,20 @@ const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
     }
 
     switch (type) {
+      case 'code-block':
+        return (
+          <Editor
+            onValueChange={(value) => console.log(value)}
+            value={modifiedText.map((item: any) => item).join('')}
+            highlight={(code) => highlight(code, languages.js, 'js')}
+            padding={10}
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+              border: '1px solid #ccc',
+            }}
+          />
+        );
       case 'heading-one':
         <h1 key={index} className="text-xl font-semibold mb-4">
           {modifiedText.map((item: any, i: number) => (
