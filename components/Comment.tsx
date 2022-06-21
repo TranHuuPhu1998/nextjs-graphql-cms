@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const Comments: React.FC<IProps> = ({ slug }) => {
-  console.log('🚀 ~ file: Comment.tsx ~ line 12 ~ slug', slug);
   const [comments, setComments] = useState<CommentQueryInterface[]>([]);
 
   useEffect(() => {

@@ -1,11 +1,17 @@
 import React from 'react';
-import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm } from '../../components';
+import { PostDetail, Categories, PostWidget, Author, Comments, CommentsForm, Loader } from '../../components';
 import { getPosts } from '../../services';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { getPostDetails } from '../../services/getDetailPost';
 import { PostDetailQuery } from '../../interface/PostDetail';
+import { useRouter } from 'next/router';
 
 const PostDetails: React.FC<PostDetailQuery> = ({ post }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <Loader />;
+  }
   return (
     <>
       <div className="container mx-auto px-10 mb-8">

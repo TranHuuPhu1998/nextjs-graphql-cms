@@ -8,15 +8,13 @@ const CommentsForm: React.FC<any> = ({ slug }) => {
   const [formData, setFormData] = useState<any>({ name: null, email: null, comment: null, storeData: false });
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const initialFormData = {
-        name: window.localStorage.getItem('name'),
-        email: window.localStorage.getItem('email'),
-        storeData: window.localStorage.getItem('name') || window.localStorage.getItem('email'),
-      };
-      setFormData(initialFormData);
-      setLocalStorage(window.localStorage);
-    }
+    const initialFormData = {
+      name: window.localStorage.getItem('name'),
+      email: window.localStorage.getItem('email'),
+      storeData: window.localStorage.getItem('name') || window.localStorage.getItem('email'),
+    };
+    setFormData(initialFormData);
+    setLocalStorage(window.localStorage);
   }, []);
 
   const onInputChange = (e: any) => {
@@ -80,7 +78,7 @@ const CommentsForm: React.FC<any> = ({ slug }) => {
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">Leave a Reply</h3>
       <div className="grid grid-cols-1 gap-4 mb-4">
         <textarea
-          value={formData.comment || ''}
+          value={formData.comment}
           onChange={onInputChange}
           className="p-4 outline-none w-full rounded-lg h-40 focus:ring-2 focus:ring-gray-200 bg-gray-100 text-gray-700"
           name="comment"
