@@ -44,6 +44,7 @@ export const getStaticProps: GetStaticProps<{ post: PostDetailQuery }> = async (
     props: {
       post: data,
     },
+    revalidate: 10,
   };
 };
 
