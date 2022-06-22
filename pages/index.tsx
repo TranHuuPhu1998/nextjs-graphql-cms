@@ -1,9 +1,9 @@
-import Categories from "../components/Categories";
-import PostCard from "../components/PostCard";
-import PostWidget from "../components/PostWidget";
-import { getListPost } from "../services/getListPost";
-import { PostQueryInterface } from "../interface/Post";
-import { GetStaticProps } from "next/types";
+import Categories from '../components/Categories';
+import PostCard from '../components/PostCard';
+import PostWidget from '../components/PostWidget';
+import { getListPost } from '../services/getListPost';
+import { PostQueryInterface } from '../interface/Post';
+import { GetStaticProps } from 'next/types';
 
 interface IProps {
   posts: PostQueryInterface[];
@@ -34,6 +34,7 @@ export const getStaticProps: GetStaticProps<IProps> = async () => {
   const posts = (await getListPost()) || [];
   return {
     props: { posts },
+    revalidate: 10,
   };
 };
 

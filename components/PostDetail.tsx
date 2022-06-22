@@ -2,83 +2,15 @@ import React from 'react';
 
 import moment from 'moment';
 import { PostDetailQuery } from '../interface/PostDetail';
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-markup';
+import Prism from 'prismjs';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+
+import { RichText } from '@graphcms/rich-text-react-renderer';
+import Image from 'next/image';
 
 const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
-  const getContentFragment = (index: number, text: any, obj: any, type?: any) => {
-    let modifiedText = text;
-
-    if (obj & type) {
-      if (obj.bold) {
-        modifiedText = <b key={index}>{text}</b>;
-      }
-
-      if (obj.italic) {
-        modifiedText = <em key={index}>{text}</em>;
-      }
-
-      if (obj.underline) {
-        modifiedText = <u key={index}>{text}</u>;
-      }
-    }
-
-    switch (type) {
-      case 'code-block':
-        return (
-          <Editor
-            onValueChange={(value) => console.log(value)}
-            value={modifiedText.map((item: any) => item).join('')}
-            highlight={(code) => highlight(code, languages.js, 'js')}
-            padding={10}
-            style={{
-              fontFamily: '"Fira code", "Fira Mono", monospace',
-              fontSize: 12,
-              border: '1px solid #ccc',
-            }}
-          />
-        );
-      case 'heading-one':
-        <h1 key={index} className="text-xl font-semibold mb-4">
-          {modifiedText.map((item: any, i: number) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </h1>;
-      case 'heading-three':
-      case 'heading-two':
-        return (
-          <h3 key={index} className="text-xl font-semibold mb-4">
-            {modifiedText.map((item: any, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h3>
-        );
-      case 'paragraph':
-        return (
-          <p key={index} className="mb-8">
-            {modifiedText.map((item: any, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </p>
-        );
-      case 'heading-four':
-        return (
-          <h4 key={index} className="text-md font-semibold mb-4">
-            {modifiedText.map((item: any, i: number) => (
-              <React.Fragment key={i}>{item}</React.Fragment>
-            ))}
-          </h4>
-        );
-      case 'image':
-        return <img key={index} alt={obj.title} height={obj.height} width={obj.width} src={obj.src} />;
-      default:
-        return modifiedText;
-    }
-  };
-
   return (
     <>
       <div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
@@ -110,11 +42,23 @@ const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
             </div>
           </div>
           <h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
-          {post.content.raw.children.map((typeObj: any, index: number) => {
-            const children = typeObj.children.map((item: any, i: number) => getContentFragment(i, item.text, item));
-
-            return getContentFragment(index, children, typeObj, typeObj.type);
-          })}
+          <RichText
+            content={post.content.raw}
+            renderers={{
+              h4: ({ children }) => <h4 style={{ fontSize: '0.8rem' }}>{children}</h4>,
+              h3: ({ children }) => <h3 style={{ fontSize: '1rem' }}>{children}</h3>,
+              h2: ({ children }) => <h2 style={{ fontSize: '1.5rem' }}>{children}</h2>,
+              h1: ({ children }) => <h1 style={{ fontSize: '2rem' }}>{children}</h1>,
+              code_block: ({ children }) => {
+                return (
+                  <pre className="line-numbers language-none">
+                    <code>{children}</code>
+                  </pre>
+                );
+              },
+              img: ({ src, altText, height, width }) => <Image src={src as string} alt={altText} height={height} width={width} objectFit="cover" />,
+            }}
+          />
         </div>
       </div>
     </>
