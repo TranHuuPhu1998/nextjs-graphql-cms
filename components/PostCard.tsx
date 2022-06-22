@@ -11,7 +11,7 @@ interface IProps {
 const PostCard: React.FC<IProps> = ({ post }) => (
   <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
     <div className="relative overflow-hidden shadow-md pb-80 mb-6">
-      <img src={post.featuredImage?.url} className="object-top absolute h-50 w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg" />
+      <img src={post.featuredImage?.url} className="object-top absolute w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg" />
     </div>
 
     <h1 className="transition duration-700 text-left mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold px-4 py-4">
