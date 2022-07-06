@@ -1,34 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { getCategories } from '../services/getCategories';
-import { CategoryQueryInterface } from '../interface/Category';
+import React from 'react';
 
-const Header = () => {
-  const [categories, setCategories] = useState<CategoryQueryInterface[]>([]);
-
-  useEffect(() => {
-    getCategories().then((newCategories) => {
-      setCategories(newCategories);
-    });
-  }, []);
-
+const Header: React.FC = () => {
   return (
-    <div className="container mx-auto px-10 mb-8">
-      <div className="border-b w-full inline-block border-blue-400 py-8">
-        <div className="md:float-left block">
-          <Link href="/">
-            <span className="cursor-pointer font-bold text-4xl text-white">BLOG</span>
-          </Link>
-        </div>
-        <div className="hidden md:float-left md:contents">
-          {categories.map((category, index) => (
-            <Link key={index} href={`/category/${category.slug}`}>
-              <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">{category.name}</span>
-            </Link>
-          ))}
-        </div>
+    <header className="w-full container mx-auto">
+      <div className="flex flex-col items-center py-12">
+        <a className="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="#">
+          Javascript Blog
+        </a>
+        <p className="text-lg text-gray-600">We're a place where coders share, stay up-to-date and grow their careers.</p>
       </div>
-    </div>
+    </header>
   );
 };
 

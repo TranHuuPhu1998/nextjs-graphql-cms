@@ -1,56 +1,52 @@
 import React from 'react';
-import Image from 'next/image';
 import moment from 'moment';
 import Link from 'next/link';
-import { graphqlCMSImageLoader } from '../utils/graphqlLoader';
 
 interface IProps {
   post: any;
 }
 
 const PostCard: React.FC<IProps> = ({ post }) => (
-  <div className="bg-white shadow-lg rounded-lg p-0 lg:p-8 pb-12 mb-8">
+  <article className="flex flex-col shadow my-4">
     <div className="relative overflow-hidden shadow-md mb-6">
       <img src={post.featuredImage?.url} className="object-top w-full object-cover shadow-lg rounded-t-lg lg:rounded-lg" />
     </div>
-
-    <h1 className="transition duration-700 text-left mb-8 cursor-pointer hover:text-pink-600 text-3xl font-semibold px-4 py-4">
-      <Link href={`/post/${post.slug}`}>{post.title}</Link>
-    </h1>
-    <div className="flex lg:flex text-center items-center mb-8 w-full px-4 py-4">
-      <div className="flex items-center lg:mb-0 lg:w-auto mr-8">
-        <Image
-          unoptimized
-          loader={graphqlCMSImageLoader}
-          alt={post.author?.name}
-          height="30px"
-          width="30px"
-          className="align-middle rounded-full"
-          src={post.author?.photo.url}
-        />
-        <p className="inline align-middle text-gray-700 ml-2 font-medium text-lg">{post.author?.name}</p>
-      </div>
-      <div className="font-medium text-gray-700">
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 inline mr-2 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
-        </svg>
-        <span className="align-middle">{moment(post.createdAt).format('MMM DD, YYYY')}</span>
-      </div>
-    </div>
-    <p className="text-lg text-gray-700 font-normal px-4 mb-8">{post.excerpt}</p>
-    <div className="text-center mb-8">
+    <div className="bg-white flex flex-col justify-start p-6">
+      <code className="text-blue-700 text-sm font-bold uppercase pb-4">{post.tags?.map((tag: any) => `#${tag.name} `)}</code>
       <Link href={`/post/${post.slug}`}>
-        <span className="transition duration-500 ease transform hover:-translate-y-1 inline-block bg-pink-600 text-lg font-medium rounded-full text-white px-8 py-3 cursor-pointer">
-          Continue Reading
+        <a className="text-3xl font-bold hover:text-gray-700 pb-4">{post.title}</a>
+      </Link>
+      <p className="text-sm pb-3">
+        By <span className="font-semibold hover:text-gray-800">{post.author?.name}</span>, Published on{' '}
+        {moment(post.createdAt).format('MMM DD, YYYY')}
+      </p>
+      <p className="pb-6">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis
+        dui porta volutpat. In sit amet posuere magna..
+      </p>
+      <Link href={`/post/${post.slug}`}>
+        <span className="w-max bg-slate-300 rounded-lg p-3 text-black flex cursor-pointer">
+          Continue Reading &nbsp;
+          <svg
+            className="svg-inline--fa fa-arrow-right w-2"
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="arrow-right"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            data-fa-i2svg
+          >
+            <path
+              fill="currentColor"
+              d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"
+            />
+          </svg>
         </span>
       </Link>
     </div>
-  </div>
+  </article>
 );
 
 export default PostCard;

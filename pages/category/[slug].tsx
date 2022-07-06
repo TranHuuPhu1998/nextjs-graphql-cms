@@ -10,7 +10,7 @@ import { PostQueryInterface } from '../../interface/Post';
 const CategoryPost: React.FC<{ posts: PostQueryInterface[] }> = ({ posts }) => {
   const router = useRouter();
 
-  if (router.isFallback) {
+  if (router.isFallback || !posts) {
     return <Loader />;
   }
 

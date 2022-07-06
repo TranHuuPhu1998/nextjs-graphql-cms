@@ -2,11 +2,8 @@ import React from 'react';
 
 import moment from 'moment';
 import { PostDetailQuery } from '../interface/PostDetail';
-import Prism from 'prismjs';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/themes/prism-tomorrow.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import Image from 'next/image';
 
@@ -51,9 +48,9 @@ const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
               h1: ({ children }) => <h1 style={{ fontSize: '2rem' }}>{children}</h1>,
               code_block: ({ children }) => {
                 return (
-                  <pre className="line-numbers language-none">
-                    <code>{children}</code>
-                  </pre>
+                  <SyntaxHighlighter language="javascript" style={dark}>
+                    {children}
+                  </SyntaxHighlighter>
                 );
               },
               img: ({ src, altText, height, width }) => <Image src={src as string} alt={altText} height={height} width={width} objectFit="cover" />,

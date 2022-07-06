@@ -4,6 +4,7 @@ import PostWidget from '../components/PostWidget';
 import { getListPost } from '../services/getListPost';
 import { PostQueryInterface } from '../interface/Post';
 import { GetStaticProps } from 'next/types';
+import { AboutUs } from 'components/AboutUs';
 
 interface IProps {
   posts: PostQueryInterface[];
@@ -17,10 +18,11 @@ const Home: React.FC<IProps> = ({ posts }) => {
           {posts?.map((post, index: number) => (
             <PostCard key={index} post={post.node} />
           ))}
+          <PostWidget />
         </div>
         <div className="lg:col-span-4 col-span-1">
-          <div className="lg:sticky relative top-8">
-            <PostWidget />
+          <div className="lg:sticky relative my-4 top-0">
+            <AboutUs />
             <Categories />
           </div>
         </div>

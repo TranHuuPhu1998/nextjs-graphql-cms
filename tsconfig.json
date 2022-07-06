@@ -14,7 +14,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "noImplicitAny": false,
+    "typeRoots": ["../node_modules/@types", "../@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.css", "next.config.js"],
   "exclude": ["node_modules"]
