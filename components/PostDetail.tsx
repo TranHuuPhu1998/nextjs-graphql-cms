@@ -1,11 +1,11 @@
-import React from 'react';
-
+import React, { ReactElement } from 'react';
 import moment from 'moment';
 import { PostDetailQuery } from '../interface/PostDetail';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import ReactDOMServer from 'react-dom/server';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import Image from 'next/image';
+import theme from 'prism-react-renderer/themes/nightOwl';
 
 const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
   return (
@@ -46,14 +46,47 @@ const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
               h3: ({ children }) => <h3 style={{ fontSize: '1rem' }}>{children}</h3>,
               h2: ({ children }) => <h2 style={{ fontSize: '1.5rem' }}>{children}</h2>,
               h1: ({ children }) => <h1 style={{ fontSize: '2rem' }}>{children}</h1>,
+              p: ({ children }) => {
+                if (ReactDOMServer.renderToString(children as ReactElement<string>).length === 0) {
+                  return <br />;
+                }
+                return <p style={{ marginBottom: '1rem' }}>{children}</p>;
+              },
               code_block: ({ children }) => {
                 return (
-                  <SyntaxHighlighter language="javascript" style={dark}>
-                    {children}
-                  </SyntaxHighlighter>
+                  <Highlight
+                    {...defaultProps}
+                    theme={theme}
+                    code={ReactDOMServer.renderToString(children as ReactElement<string>)}
+                    language="javascript"
+                  >
+                    {({ className, style, tokens, getLineProps, getTokenProps }) => (
+                      <pre className={className} style={style}>
+                        {tokens.map((line, i) => (
+                          <div {...getLineProps({ line, key: i })}>
+                            {line.map((token, key) => (
+                              <span {...getTokenProps({ token, key })} />
+                            ))}
+                          </div>
+                        ))}
+                      </pre>
+                    )}
+                  </Highlight>
                 );
               },
               img: ({ src, altText, height, width }) => <Image src={src as string} alt={altText} height={height} width={width} objectFit="cover" />,
+              a: ({ children, href, title }) => {
+                const regex = /.png/g; // the "global" flag is set
+
+                if (href && regex.test(href)) {
+                  return <img src={href} height="100%" alt={title} />;
+                }
+                return (
+                  <a className="text-blue-400 underline" href={href}>
+                    {children}
+                  </a>
+                );
+              },
             }}
           />
         </div>

@@ -55,7 +55,7 @@ const PostWidget: React.FC<IProps> = ({ categories, slug }) => {
       <h3 className="text-xl mb-8 font-semibold border-b pb-4">{slug ? 'Related Posts' : 'Recent Posts'}</h3>
       <Slider {...settings}>
         {relatedPosts.map((post: any, index: number) => (
-          <div key={index} className="border border-cyan-400 w-full h-60 p-2">
+          <div key={index} className="border border-cyan-400 w-full h-72 p-2">
             <div className="flex">
               <Image alt={post.title} height="300px" width="600px" unoptimized className="align-middle" src={post.featuredImage.url} />
             </div>
