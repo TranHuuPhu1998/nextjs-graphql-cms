@@ -1,0 +1,3 @@
+[submodule "nx-packages"]
+	path = nx-packages
+	url = https://github.com/TranHuuPhu1998/nx-packages.git

@@ -25,7 +25,7 @@ const CategoryPost: React.FC<{ posts: PostQueryInterface[]; tags: any }> = ({ po
         </div>
         <div className="col-span-1 lg:col-span-4 py-4">
           <div className="relative lg:sticky top-8 border rounded-lg	border[#cccccc] py-2">
-            {tags.map((tag, index) => {
+            {tags.map((tag: any, index: number) => {
               return <TagList key={index} tags={tag.node} />;
             })}
           </div>

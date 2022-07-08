@@ -4,10 +4,10 @@ import Router from 'next/router';
 import { providers, csrfToken, useSession } from 'next-auth/client';
 
 const Login = ({ providers, csrfToken }) => {
-  const [session, _] = useSession();
+  const [session] = useSession();
 
   useEffect(() => {
-    if (session) Router.push('/');
+    if (session) Router.push('//');
   }, [session]);
 
   return (
