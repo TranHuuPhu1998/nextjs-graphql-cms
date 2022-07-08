@@ -1,26 +1,17 @@
-import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getCategories } from '../services/getCategories';
-import { CategoryQueryInterface } from '../interface/Category';
+import React from 'react';
+import AuthLinks from './AuthLinks';
 
 const Nav: React.FC = () => {
-  const [categories, setCategories] = useState<CategoryQueryInterface[]>([]);
-
-  useEffect(() => {
-    getCategories().then((newCategories) => {
-      setCategories(newCategories);
-    });
-  }, []);
-
   return (
     <nav className="w-full py-4 bg-blue-800 shadow">
       <div className="w-full container mx-auto flex flex-wrap items-center justify-between">
         <nav>
           <ul className="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
             <li>
-              <a className="hover:text-gray-200 hover:underline px-4" href="#">
-                Shop
-              </a>
+              <Link className="hover:text-gray-200 hover:underline px-4" href="/">
+                HOME
+              </Link>
             </li>
             <li>
               <a className="hover:text-gray-200 hover:underline px-4" href="#">
@@ -87,25 +78,7 @@ const Nav: React.FC = () => {
             </svg>
             {/* <i class="fab fa-twitter"></i> */}
           </a>
-          <a className="pl-6 flex h-4" href="#">
-            <svg
-              className="svg-inline--fa fa-linkedin fa-w-14"
-              aria-hidden="true"
-              focusable="false"
-              data-prefix="fab"
-              data-icon="linkedin"
-              role="img"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512"
-              data-fa-i2svg
-            >
-              <path
-                fill="currentColor"
-                d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
-              />
-            </svg>
-            {/* <i class="fab fa-linkedin"></i> */}
-          </a>
+          <AuthLinks />
         </div>
       </div>
     </nav>

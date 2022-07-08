@@ -1,8 +1,8 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-import { graphqlCMSImageLoader } from "../utils/graphqlLoader";
-import { UserInterface } from "../interface/User";
+import { graphqlCMSImageLoader } from 'utils/graphqlLoader';
+import { UserInterface } from 'interface/User';
 
 const Author: React.FC<UserInterface> = ({ author }) => {
   return (

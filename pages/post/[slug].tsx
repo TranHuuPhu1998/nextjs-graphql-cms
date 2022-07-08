@@ -12,6 +12,7 @@ const PostDetails: React.FC<PostDetailQuery> = ({ post }) => {
   if (router.isFallback || !post) {
     return <Loader />;
   }
+
   return (
     <>
       <div className="container mx-auto px-10 mb-8">

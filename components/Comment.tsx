@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import parse from 'html-react-parser';
-import { CommentQueryInterface } from '../interface/Comment';
-import { getComments } from '../services/getComments';
+import { CommentQueryInterface } from 'interface/Comment';
+import { getComments } from 'services/getComments';
+import { toast } from 'react-toastify';
 
 interface IProps {
   slug: string;
@@ -13,9 +14,11 @@ const Comments: React.FC<IProps> = ({ slug }) => {
 
   useEffect(() => {
     if (slug) {
-      getComments(slug).then((result) => {
-        setComments(result);
-      });
+      getComments(slug)
+        .then((result) => {
+          setComments(result);
+        })
+        .catch((err) => toast.error(err));
     }
   }, [slug]);
 

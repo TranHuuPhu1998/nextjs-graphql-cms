@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { createCommentInPost } from '../services/createCommentInPost';
+import { createCommentInPost } from 'services/createCommentInPost';
 
 const CommentsForm: React.FC<any> = ({ slug }) => {
   const [error, setError] = useState(false);

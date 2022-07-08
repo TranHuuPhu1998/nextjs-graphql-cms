@@ -1,13 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-
-import { getCategories } from '../../services/getCategories';
-import { getCategoryPost } from '../../services/getCategoryPost';
-import { PostCard, Categories, Loader } from '../../components';
+import { getCategories } from 'services/getCategories';
+import { getCategoryPost } from 'services/getCategoryPost';
+import { PostCard, Loader } from 'components';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import { PostQueryInterface } from '../../interface/Post';
+import { PostQueryInterface } from 'interface/Post';
+import { TagList } from 'components/TagList';
+import { getListTags } from 'services/getListTag';
 
-const CategoryPost: React.FC<{ posts: PostQueryInterface[] }> = ({ posts }) => {
+const CategoryPost: React.FC<{ posts: PostQueryInterface[]; tags: any }> = ({ posts, tags }) => {
   const router = useRouter();
 
   if (router.isFallback || !posts) {
@@ -22,9 +23,11 @@ const CategoryPost: React.FC<{ posts: PostQueryInterface[] }> = ({ posts }) => {
             <PostCard key={index} post={post.node} />
           ))}
         </div>
-        <div className="col-span-1 lg:col-span-4">
-          <div className="relative lg:sticky top-8">
-            <Categories />
+        <div className="col-span-1 lg:col-span-4 py-4">
+          <div className="relative lg:sticky top-8 border rounded-lg	border[#cccccc] py-2">
+            {tags.map((tag, index) => {
+              return <TagList key={index} tags={tag.node} />;
+            })}
           </div>
         </div>
       </div>
@@ -37,9 +40,9 @@ export default CategoryPost;
 // Fetch data at build time
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const posts = await getCategoryPost(params?.slug as string);
-
+  const tags = await getListTags();
   return {
-    props: { posts },
+    props: { posts, tags },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 10 seconds

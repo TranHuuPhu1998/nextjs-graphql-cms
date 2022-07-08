@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import moment from 'moment';
-import { PostDetailQuery } from '../interface/PostDetail';
+import { PostDetailQuery } from 'interface/PostDetail';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import ReactDOMServer from 'react-dom/server';
 import { RichText } from '@graphcms/rich-text-react-renderer';
@@ -76,7 +76,7 @@ const PostDetail: React.FC<PostDetailQuery> = ({ post }) => {
               },
               img: ({ src, altText, height, width }) => <Image src={src as string} alt={altText} height={height} width={width} objectFit="cover" />,
               a: ({ children, href, title }) => {
-                const regex = /.png/g; // the "global" flag is set
+                const regex = /.png|.jpg/g; // the "global" flag is set
 
                 if (href && regex.test(href)) {
                   return <img src={href} height="100%" alt={title} />;

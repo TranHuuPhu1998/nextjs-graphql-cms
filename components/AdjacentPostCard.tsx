@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import Link from 'next/link';
-import { PostDetailQuery } from '../interface/PostDetail';
+import { PostDetailQuery } from 'interface/PostDetail';
 
 interface IProps extends PostDetailQuery {
   position: string;

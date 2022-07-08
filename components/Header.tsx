@@ -7,7 +7,7 @@ const Header: React.FC = () => {
         <a className="font-bold text-gray-800 uppercase hover:text-gray-700 text-5xl" href="#">
           Javascript Blog
         </a>
-        <p className="text-lg text-gray-600">We're a place where coders share, stay up-to-date and grow their careers.</p>
+        <p className="text-lg text-gray-600 text-center">We're a place where coders share, stay up-to-date and grow their careers.</p>
       </div>
     </header>
   );

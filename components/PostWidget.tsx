@@ -5,9 +5,9 @@ import Link from 'next/link';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { getRecentPosts } from '../services/getRecentPosts';
-import { getSimilarPosts } from '../services/getSimilarPosts';
-
+import { getRecentPosts } from 'services/getRecentPosts';
+import { getSimilarPosts } from 'services/getSimilarPosts';
+import { toast } from 'react-toastify';
 interface IProps {
   categories?: any;
   slug?: string;
@@ -18,13 +18,17 @@ const PostWidget: React.FC<IProps> = ({ categories, slug }) => {
 
   useEffect(() => {
     if (slug) {
-      getSimilarPosts(categories, slug).then((result) => {
-        setRelatedPosts(result);
-      });
+      getSimilarPosts(categories, slug)
+        .then((result) => {
+          setRelatedPosts(result);
+        })
+        .catch((err) => toast.error(err));
     } else {
-      getRecentPosts().then((result) => {
-        setRelatedPosts(result);
-      });
+      getRecentPosts()
+        .then((result) => {
+          setRelatedPosts(result);
+        })
+        .catch((err) => toast.error(err));
     }
   }, [slug]);
 
