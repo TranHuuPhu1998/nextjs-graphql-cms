@@ -1,6 +1,7 @@
 import SignUpForm from 'components/SignUpForm';
 
 const Register = () => {
+  // commit 2
   return (
     <div className=" bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8 py-12">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
