@@ -26,6 +26,7 @@ const Login = ({ providers, csrfToken }) => {
 };
 
 export async function getServerSideProps(context) {
+  // commit 1
   return {
     props: {
       providers: await providers(),
