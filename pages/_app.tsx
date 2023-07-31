@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { HelpersWords } from 'nx-packages/packages/open-ai-helpers/src';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  //commit 3
   return (
     <Provider session={session}>
       <Layout>
